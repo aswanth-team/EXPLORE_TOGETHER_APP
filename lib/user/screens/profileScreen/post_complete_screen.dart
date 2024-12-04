@@ -131,6 +131,21 @@ class _PostCompleteScreenState extends State<PostCompleteScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            RatingBar.builder(
+              initialRating: tripRating ?? 0,
+              minRating: 1,
+              itemSize: 30,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemBuilder: (context, _) =>
+                  Icon(Icons.star, color: Colors.yellow),
+              onRatingUpdate: (rating) => setState(() => tripRating = rating),
+            ),
+
+            SizedBox(
+              height: 10,
+            ),
             // Trip Buddies input field
             TextField(
               controller: tripBuddiesController,
@@ -211,18 +226,6 @@ class _PostCompleteScreenState extends State<PostCompleteScreen> {
             ),
 
             // Rating bar for trip rating
-            RatingBar.builder(
-              initialRating: tripRating ?? 0,
-              minRating: 1,
-              itemSize: 30,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemBuilder: (context, _) =>
-                  Icon(Icons.star, color: Colors.yellow),
-              onRatingUpdate: (rating) => setState(() => tripRating = rating),
-            ),
-            Spacer(),
 
             // Complete button
             ElevatedButton(

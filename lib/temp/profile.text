@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../userDetailsScreen/post_details_screen.dart';
+import '../postScreen/post_details_screen.dart';
 import 'edit_profile_screen.dart';
 import 'post_complete_screen.dart';
 import 'settingScreen/settings_screen.dart';
@@ -143,23 +143,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   String userImage =
       userData['userImage'] ?? 'assets/defaults/defaultUserImage.jpeg';
-
-  void _navigateToEditProfile() async {
-    final updatedData = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            EditProfile(userData: userData), // Passing data to EditProfile
-      ),
-    );
-
-    // Check if the data was updated, then update the UI
-    if (updatedData != null) {
-      setState(() {
-        userData = updatedData;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -438,76 +421,11 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 10,
             ),
             Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Create a container to wrap the buttons and set its width to 95% of the device width
-                  Container(
-                    width: MediaQuery.of(context).size.width *
-                        0.95, // 95% of the device width
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Edit Profile button
-                        Container(
-                          width: MediaQuery.of(context).size.width *
-                              0.45, // 45% of the width for each button
-                          child: ElevatedButton(
-                            onPressed: _navigateToEditProfile,
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.black,
-                              backgroundColor:
-                                  Colors.white, // Set background color to white
-                              side: BorderSide(
-                                color: Colors.black,
-                                width: 0.3, // Decreased the border width to 1
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    5), // Decreased border radius
-                              ),
-                            ),
-                            child: const Text("Edit Profile"),
-                          ),
-                        ),
-                        const SizedBox(
-                            width: 5), // Add spacing between the buttons
-                        // Settings button
-                        Container(
-                          width: MediaQuery.of(context).size.width *
-                              0.45, // 45% of the width for each button
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // Navigate to the settings page when the button is pressed
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SettingsPage()),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.black,
-                              backgroundColor:
-                                  Colors.white, // Set background color to white
-                              side: BorderSide(
-                                color: Colors.black,
-                                width: 0.3, // Decreased the border width to 1
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    5), // Decreased border radius
-                              ),
-                            ),
-                            child: const Text("Settings"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text("Edit Profile"),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Row(
@@ -522,19 +440,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             showPosts = true;
                           });
                         },
-                        icon: const Icon(
-                          Icons.grid_on,
-                          color: Colors
-                              .black, // Set the color of the icon to black
-                        ),
-                        label: const Text(
-                          'Posts',
-                          style: TextStyle(
-                              color: Colors
-                                  .black), // Set the color of the text to black
-                        ),
+                        icon: const Icon(Icons.grid_on),
+                        label: const Text('Posts'),
                       ),
-
                       // Underline when Posts is selected
                       if (showPosts)
                         Container(
@@ -554,25 +462,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             showPosts = false;
                           });
                         },
-                        icon: const Icon(
-                          Icons.photo_album,
-                          color: Colors
-                              .black, // Set the color of the icon to black
-                        ),
-                        label: const Text(
-                          'Trip Images',
-                          style: TextStyle(
-                              color: Colors
-                                  .black), // Set the color of the text to black
-                        ),
+                        icon: const Icon(Icons.photo_album),
+                        label: const Text('Trip Images'),
                       ),
-
                       // Underline when Trip Images is selected
                       if (!showPosts)
                         Container(
                           height: 2,
                           width: 50,
-                          color: Colors.black,
+                          color: Colors.blue,
                         ),
                     ],
                   ),

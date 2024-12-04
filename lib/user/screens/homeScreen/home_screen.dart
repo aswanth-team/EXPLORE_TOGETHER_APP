@@ -1,6 +1,5 @@
 import 'dart:math';
 
-
 import 'home_posts_screen.dart';
 import 'package:flutter/material.dart';
 import '../../../data/users.dart';
@@ -519,7 +518,6 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {
                               setState(() {
                                 filterLocation = '';
-                                filteredPosts = posts;
                                 _searchController.clear();
                                 selectedGender = 'All';
                                 selectedCompletionStatus = 'All';

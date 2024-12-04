@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../data/users.dart';
-import '../userDetailsScreen/user_details_screen.dart';
+import 'user_details_screen.dart';
 
 
 void main() => runApp(MaterialApp(

@@ -5,7 +5,7 @@ import 'user/screens/user_screen.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: UserScreen(),
+    home: LoginScreen(),
     debugShowCheckedModeBanner: false,
   ));
 }

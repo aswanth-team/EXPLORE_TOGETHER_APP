@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../data/users.dart';
-import '../postScreen/post_details_screen.dart';
+import 'post_details_screen.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -64,13 +63,10 @@ class _UsersProfilePageState extends State<UsersProfilePage> {
     int completedPosts =
         userPosts.where((post) => post['tripCompleted']).length;
 
+    String userImage =
+        userData['userImage'] ?? 'assets/defaults/defaultUserImage.jpeg';
+
     return Scaffold(
-      backgroundColor: userData['userGender']?.toLowerCase() == 'female'
-          ? Color.fromRGBO(254, 244, 255, 1) // Pinkish color for female
-          : userData['userGender']?.toLowerCase() == 'male'
-              ? Color.fromRGBO(220, 240, 255, 1) // Light blue color for male
-              : const Color.fromARGB(
-                  255, 242, 255, 255), // Default color if not female or male
       appBar: AppBar(
         title: Text(userData['userName']),
       ),
@@ -112,7 +108,7 @@ class _UsersProfilePageState extends State<UsersProfilePage> {
                                     borderRadius: BorderRadius.circular(
                                         8.0), // Match border radius
                                     child: Image.asset(
-                                      userData['userImage']!,
+                                      userImage,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -136,7 +132,7 @@ class _UsersProfilePageState extends State<UsersProfilePage> {
                       ),
                       child: CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage(userData['userImage']!),
+                        backgroundImage: AssetImage(userImage),
                         backgroundColor: Colors.black,
                       ),
                     ),
@@ -213,7 +209,6 @@ class _UsersProfilePageState extends State<UsersProfilePage> {
                 ],
               ),
             ),
-            // Below Section: Full Name, DOB, Gender, Bio, Chat Button
             // Below Section: Full Name, DOB, Gender, Bio, Chat Button, Social Links
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -345,6 +340,54 @@ class _UsersProfilePageState extends State<UsersProfilePage> {
 
                   const SizedBox(height: 4),
 
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Create a container to wrap the buttons and set its width to 95% of the device width
+                        Container(
+                          width: MediaQuery.of(context).size.width *
+                              0.95, // 95% of the device width
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width *
+                                    0.45, // 45% of the width for each button
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ChatPage(
+                                            username: userData['userName']),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.black,
+                                    backgroundColor: Colors
+                                        .white, // Set background color to white
+                                    side: BorderSide(
+                                      color: Colors.black,
+                                      width:
+                                          0.3, // Decreased the border width to 1
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          5), // Decreased border radius
+                                    ),
+                                  ),
+                                  child: const Text("Chat"),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   // Chat Button
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -456,10 +499,10 @@ class _UsersProfilePageState extends State<UsersProfilePage> {
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3, // Number of items per row
-                        crossAxisSpacing: 8, // Horizontal space between items
-                        mainAxisSpacing: 8, // Vertical space between items
+                        crossAxisSpacing: 4, // Horizontal space between items
+                        mainAxisSpacing: 4, // Vertical space between items
                         childAspectRatio:
-                            0.65, // Increase this value to make the grid items taller
+                            0.80, // Increase this value to make the grid items taller
                       ),
                       itemCount: userPosts.length,
                       itemBuilder: (context, index) {
@@ -484,7 +527,7 @@ class _UsersProfilePageState extends State<UsersProfilePage> {
                                   : Colors.white,
                               border: Border.all(
                                 color: Colors.grey, // Border color
-                                width: 1, // Border width
+                                width: 0.5, // Border width
                               ),
                               borderRadius: BorderRadius.circular(
                                   12), // Match the image's corner radius
@@ -493,7 +536,7 @@ class _UsersProfilePageState extends State<UsersProfilePage> {
                                   color: const Color.fromARGB(
                                           255, 138, 222, 255)
                                       .withOpacity(
-                                          0.5), // Shadow color with transparency
+                                          0.1), // Shadow color with transparency
                                   spreadRadius: 2, // Spread radius
                                   blurRadius: 5, // Blur radius
                                   offset:
@@ -528,7 +571,7 @@ class _UsersProfilePageState extends State<UsersProfilePage> {
                                           post['tripLocation'],
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 15,
+                                            fontSize: 12,
                                           ),
                                         ),
                                       ),
@@ -539,22 +582,6 @@ class _UsersProfilePageState extends State<UsersProfilePage> {
                                       //         12, // Font size for "Completed"
                                       //   ),
                                       // ),
-                                      if (post['tripCompleted'] ?? false)
-                                        RatingBar.builder(
-                                          initialRating:
-                                              post['tripRating'] ?? 0,
-                                          minRating: 0,
-                                          itemSize: 20,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemBuilder: (context, _) =>
-                                              const Icon(Icons.star,
-                                                  color: Colors.yellow),
-                                          onRatingUpdate: (rating) {
-                                            print(rating);
-                                          },
-                                        ),
                                     ],
                                   ),
                                 ),
