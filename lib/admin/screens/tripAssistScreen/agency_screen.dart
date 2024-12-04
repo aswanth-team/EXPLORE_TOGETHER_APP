@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-
-import '../../../data/agencies.dart'; 
+import '../../../data/agencies.dart';
+import 'agency_upload_screen';
 
 void main() {
   runApp(const MaterialApp(
@@ -30,11 +28,13 @@ class _TravelAgencyPageState extends State<TravelAgencyPage> {
     filteredAgencies = agencies; // Initially, show all agencies
   }
 
+  // Extract unique categories dynamically from the agencies list
   List<String> getCategories() {
     final categories = agencies.map((agency) => agency['category']).toSet();
     return ['All', ...categories]; // Add 'All' as the default option
   }
 
+  // Update filtered agencies based on search and category
   void _filterAgencies(String query) {
     setState(() {
       filteredAgencies = agencies.where((agency) {
@@ -42,6 +42,7 @@ class _TravelAgencyPageState extends State<TravelAgencyPage> {
             agency['agencyName']!.toLowerCase().contains(query.toLowerCase());
         final matchCategory =
             selectedCategory == "All" || agency['category'] == selectedCategory;
+
         return matchSearch && matchCategory;
       }).toList();
     });
@@ -54,16 +55,12 @@ class _TravelAgencyPageState extends State<TravelAgencyPage> {
     });
   }
 
-  void _updateAgency(Map<String, dynamic> updatedAgency) {
-    print('Agency Updated: ${updatedAgency['agencyName']}');
-    print('All Data: $updatedAgency');
-  }
-
-  void _removeAgency(int index) {
+  // Function to delete agency
+  void _deleteAgency(String agencyId) {
     setState(() {
-      filteredAgencies.removeAt(index);
+      filteredAgencies.removeWhere((agency) => agency['agencyId'] == agencyId);
     });
-    print('Agency Removed');
+    print("Agency with ID $agencyId deleted.");
   }
 
   @override
@@ -76,6 +73,7 @@ class _TravelAgencyPageState extends State<TravelAgencyPage> {
       ),
       body: Column(
         children: [
+          // Search Bar
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
@@ -97,6 +95,8 @@ class _TravelAgencyPageState extends State<TravelAgencyPage> {
               ),
             ),
           ),
+
+          // Horizontal Scrollable Category Selector
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -129,15 +129,45 @@ class _TravelAgencyPageState extends State<TravelAgencyPage> {
               }).toList(),
             ),
           ),
+
+          // Filtered Results
           Expanded(
             child: RefreshIndicator(
-              onRefresh: _refreshData,
-              child: ListView.builder(
+              onRefresh: _refreshData, // Call the refresh method
+              child: GridView.builder(
                 padding: const EdgeInsets.all(16.0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  childAspectRatio: 4,
+                  crossAxisSpacing: 16.0,
+                  mainAxisSpacing: 16.0,
+                ),
                 itemCount: filteredAgencies.length,
                 itemBuilder: (context, index) {
                   final agency = filteredAgencies[index];
                   return GestureDetector(
+                    onTap: () {
+                      final url = Uri.parse(agency['agencyWeb']!);
+                      if (url.scheme == 'http' || url.scheme == 'https') {
+                        // Launch in an external browser
+                        launchUrl(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                          // ignore: body_might_complete_normally_catch_error
+                        ).catchError((error) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content:
+                                    Text('Could not open ${url.toString()}')),
+                          );
+                        });
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text('Invalid URL: ${url.toString()}')),
+                        );
+                      }
+                    },
                     child: Container(
                       padding: const EdgeInsets.all(16.0),
                       decoration: BoxDecoration(
@@ -161,63 +191,17 @@ class _TravelAgencyPageState extends State<TravelAgencyPage> {
                           ),
                           const SizedBox(width: 16),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  agency['agencyName']!,
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 4),
-                                GestureDetector(
-                                  onTap: () {
-                                    final url = Uri.parse(agency['agencyWeb']!);
-                                    if (url.scheme == 'http' ||
-                                        url.scheme == 'https') {
-                                      launchUrl(
-                                        url,
-                                        mode: LaunchMode.externalApplication,
-                                      ).catchError((error) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                                'Could not open ${url.toString()}'),
-                                          ),
-                                        );
-                                      });
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                              'Invalid URL: ${url.toString()}'),
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  child: const Text(
-                                    'Details',
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        decoration: TextDecoration.underline),
-                                  ),
-                                ),
-                              ],
+                            child: Text(
+                              agency['agencyName']!,
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.edit, color: Colors.blue),
-                            onPressed: () {
-                              _showEditPopup(context, agency, index);
-                            },
                           ),
                           IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
-                              _removeAgency(index);
+                              _deleteAgency(
+                                  agency['agencyId']!); // Call delete function
                             },
                           ),
                         ],
@@ -230,143 +214,24 @@ class _TravelAgencyPageState extends State<TravelAgencyPage> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UploadAgencyPage()),
+          );
+
+          if (result != null) {
+            // Handle the result (new agency added)
+            setState(() {
+              agencies.add(result); // Add the new agency to the list
+              filteredAgencies = agencies; // Update filtered agencies
+            });
+          }
+        },
+        child: const Icon(Icons.add),
+        tooltip: 'Upload Agency',
+      ),
     );
-  }
-
-  void _showEditPopup(
-      BuildContext context, Map<String, dynamic> agency, int index) {
-    TextEditingController nameController =
-        TextEditingController(text: agency['agencyName']);
-    TextEditingController webController =
-        TextEditingController(text: agency['agencyWeb']);
-    TextEditingController categoryController =
-        TextEditingController(text: agency['category']);
-
-    List<String> originalTags = List<String>.from(agency['agencyKeywords'] ?? []);
-    List<String> tags = List<String>.from(originalTags);
-
-    TextEditingController tagController = TextEditingController();
-    String imageName = agency['agencyImage']!;
-
-    final picker = ImagePicker();
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              title: const Text('Edit Agency'),
-              content: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage(imageName),
-                          radius: 30,
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () async {
-                            final pickedFile = await picker.pickImage(
-                                source: ImageSource.gallery);
-                            if (pickedFile != null) {
-                              setState(() {
-                                imageName = pickedFile.path;
-                              });
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                    TextField(
-                      controller: nameController,
-                      decoration:
-                          const InputDecoration(labelText: 'Agency Name'),
-                    ),
-                    TextField(
-                      controller: webController,
-                      decoration: const InputDecoration(labelText: 'Agency Web'),
-                    ),
-                    TextField(
-                      controller: categoryController,
-                      decoration: const InputDecoration(labelText: 'Category'),
-                    ),
-                    const SizedBox(height: 16),
-                    Wrap(
-                      spacing: 8,
-                      children: tags.map((tag) {
-                        return Chip(
-                          label: Text(tag),
-                          deleteIcon: const Icon(Icons.cancel),
-                          onDeleted: () {
-                            setState(() {
-                              tags.remove(tag);
-                            });
-                          },
-                        );
-                      }).toList(),
-                    ),
-                    TextField(
-                      controller: tagController,
-                      decoration: const InputDecoration(
-                          hintText: 'Add keyword (Press Enter or comma)'),
-                      onSubmitted: (value) {
-                        _addTag(value, tags, tagController, setState);
-                      },
-                      onChanged: (value) {
-                        if (value.endsWith(',')) {
-                          _addTag(value, tags, tagController, setState);
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Map<String, dynamic> updatedAgency = {
-                      'agencyName': nameController.text,
-                      'agencyWeb': webController.text,
-                                           'category': categoryController.text,
-                      'agencyKeywords': tags,
-                      'agencyImage': imageName, // Updated image path
-                    };
-
-                    _updateAgency(updatedAgency); // Call update function
-                    setState(() {
-                      filteredAgencies[index] = updatedAgency;
-                    });
-
-                    Navigator.pop(context); // Close dialog
-                  },
-                  child: const Text('Change'),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
-
-  void _addTag(String value, List<String> tags, TextEditingController controller,
-      Function setState) {
-    String tag = value.trim().replaceAll(',', '');
-    if (tag.isNotEmpty && !tags.contains(tag)) {
-      setState(() {
-        tags.add(tag);
-      });
-    }
-    controller.clear();
   }
 }
-

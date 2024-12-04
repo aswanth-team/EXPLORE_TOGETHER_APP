@@ -52,6 +52,7 @@ class _UserSearchPageState extends State<UserSearchPage> {
         removedusers.add(user);
       }
     });
+    print('User $userName is Removed');
   }
 
   void addUser(String userName) {
@@ -66,6 +67,7 @@ class _UserSearchPageState extends State<UserSearchPage> {
         users.add(user);
       }
     });
+    print('User $userName is Added');
   }
 
   Color getCardColor(Map<String, dynamic> user) {

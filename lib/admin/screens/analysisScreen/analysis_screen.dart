@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-
 import '../../../data/users.dart';
 import '../../../data/removedusers.dart';
 
@@ -92,6 +91,29 @@ class AnalysisPage extends StatelessWidget {
               ),
               SizedBox(height: 30),
 
+              _buildPieChartWithHeading(
+                context,
+                'Removed Users',
+                [
+                  PieChartSectionData(
+                    value: totalRemovedUsers.toDouble(),
+                    title: ' ',
+                    color: const Color.fromARGB(255, 255, 0, 0),
+                    radius: 60,
+                  ),
+                  PieChartSectionData(
+                    value: totalActiveUsers.toDouble(),
+                    color: const Color.fromARGB(255, 108, 192, 11),
+                    title: ' ',
+                    radius: 60,
+                  ),
+                ],
+                [
+                  "Active Users: $totalActiveUsers",
+                  "Removed Users: $totalRemovedUsers"
+                ],
+              ),
+
               // Gender Distribution Pie Chart with Heading and Legend
               _buildPieChartWithHeading(
                 context,
@@ -148,28 +170,6 @@ class AnalysisPage extends StatelessWidget {
               ),
 
               // Removed Users Pie Chart with Heading and Legend
-              _buildPieChartWithHeading(
-                context,
-                'Removed Users',
-                [
-                  PieChartSectionData(
-                    value: totalRemovedUsers.toDouble(),
-                    title: ' ',
-                    color: const Color.fromARGB(255, 255, 0, 0),
-                    radius: 80,
-                  ),
-                  PieChartSectionData(
-                    value: totalActiveUsers.toDouble(),
-                    color: const Color.fromARGB(255, 108, 192, 11),
-                    title: ' ',
-                    radius: 80,
-                  ),
-                ],
-                [
-                  "Active Users: $totalActiveUsers",
-                  "Removed Users: $totalRemovedUsers"
-                ],
-              ),
             ],
           ),
         ),

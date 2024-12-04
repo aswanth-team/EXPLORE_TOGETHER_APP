@@ -339,73 +339,45 @@ class _UsersProfilePageState extends State<UsersProfilePage> {
                   ),
 
                   const SizedBox(height: 4),
-
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Create a container to wrap the buttons and set its width to 95% of the device width
-                        Container(
-                          width: MediaQuery.of(context).size.width *
-                              0.95, // 95% of the device width
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width *
-                                    0.45, // 45% of the width for each button
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ChatPage(
-                                            username: userData['userName']),
-                                      ),
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: Colors.black,
-                                    backgroundColor: Colors
-                                        .white, // Set background color to white
-                                    side: BorderSide(
-                                      color: Colors.black,
-                                      width:
-                                          0.3, // Decreased the border width to 1
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          5), // Decreased border radius
-                                    ),
-                                  ),
-                                  child: const Text("Chat"),
-                                ),
-                              ),
-                            ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .center, // Center the button horizontally
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.green,
+                          minimumSize: Size(
+                              200, 50), // Set the text and icon color to white
+                          side: BorderSide(color: Colors.black, width: 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                8), // Decrease the border radius
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-
-                  // Chat Button
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize:
-                          Size(double.infinity, 50), // Increase button width
-                      side: BorderSide(
-                          color: Colors.black, width: 1), // Black border
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ChatPage(username: userData['userName']),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ChatPage(username: userData['userName']),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.center, // Align text and icon
+                          children: [
+                            Icon(Icons.chat,
+                                color: Colors.white), // Chat icon in white
+                            SizedBox(width: 8), // Space between icon and text
+                            Text('Chat',
+                                style: TextStyle(
+                                    color: Colors.white)), // Text in white
+                          ],
                         ),
-                      );
-                    },
-                    child: const Text('Chat'),
+                      ),
+                    ],
                   ),
                 ],
               ),

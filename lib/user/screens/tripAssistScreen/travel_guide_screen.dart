@@ -141,12 +141,11 @@ class _TravelAgencyPageState extends State<TravelAgencyPage> {
                     onTap: () {
                       final url = Uri.parse(agency['agencyWeb']!);
                       if (url.scheme == 'http' || url.scheme == 'https') {
-                        // Launch in an external browser
                         launchUrl(
                           url,
                           mode: LaunchMode.externalApplication,
+                        // ignore: body_might_complete_normally_catch_error
                         ).catchError((error) {
-                          // Optional: Handle errors gracefully
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                                 content:

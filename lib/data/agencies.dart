@@ -1,5 +1,6 @@
 List<Map<String, dynamic>> agencies = [
   {
+    'agencyId': 'makemytrip123',
     'agencyName': 'makemytrip',
     'agencyImage': 'assets/agency/makemytrip.png',
     'agencyWeb': 'https://www.makemytrip.com/',
@@ -14,6 +15,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Travel Agencies'
   },
   {
+    'agencyId': 'tripadvisor321',
     'agencyName': 'tripadvisor',
     'agencyImage': 'assets/agency/tripadvisor.png',
     'agencyWeb': 'https://www.tripadvisor.in/',
@@ -28,6 +30,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Travel Agencies'
   },
   {
+    'agencyId': 'lastminute321',
     "agencyName": "Lastminute.com",
     "agencyImage": "assets/agency/lastminute.png",
     "agencyWeb": "https://www.lastminute.com/",
@@ -41,6 +44,7 @@ List<Map<String, dynamic>> agencies = [
     "category": "Travel Agencies"
   },
   {
+    'agencyId': 'hotwire123',
     "agencyName": "Hotwire",
     "agencyImage": "assets/agency/hotwire.jpg",
     "agencyWeb": "https://www.hotwire.com/",
@@ -54,7 +58,8 @@ List<Map<String, dynamic>> agencies = [
     "category": "Travel Agencies"
   },
   {
-    "agencyName": "Kiwi.webp",
+    'agencyId': 'kiwi123',
+    "agencyName": "Kiwi",
     "agencyImage": "assets/agency/kiwi.webp",
     "agencyWeb": "https://www.kiwi.com/",
     "agencyKeywords": [
@@ -67,6 +72,7 @@ List<Map<String, dynamic>> agencies = [
     "category": "Travel Agencies"
   },
   {
+    'agencyId': 'uber123',
     'agencyName': 'Uber',
     'agencyImage': 'assets/agency/Uber.jpg',
     'agencyWeb': 'https://www.uber.com/',
@@ -81,6 +87,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Transport'
   },
   {
+    'agencyId': 'ola123',
     'agencyName': 'Ola',
     'agencyImage': 'assets/agency/ola.png',
     'agencyWeb': 'https://www.olacabs.com/',
@@ -95,6 +102,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Transport'
   },
   {
+    'agencyId': 'irctc123',
     'agencyName': 'IRCTC',
     'agencyImage': 'assets/agency/irctc.png',
     'agencyWeb': 'https://www.irctc.co.in/',
@@ -109,6 +117,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Transport'
   },
   {
+    'agencyId': 'expedia123',
     'agencyName': 'Expedia',
     'agencyImage': 'assets/agency/expedia.png',
     'agencyWeb': 'https://www.expedia.com/',
@@ -123,6 +132,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Travel Agencies'
   },
   {
+    'agencyId': 'bookingcom123',
     'agencyName': 'Booking.com',
     'agencyImage': 'assets/agency/booking.png',
     'agencyWeb': 'https://www.booking.com/',
@@ -137,6 +147,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Travel Agencies'
   },
   {
+    'agencyId': 'skyscanner123',
     'agencyName': 'Skyscanner',
     'agencyImage': 'assets/agency/skyscanner.png',
     'agencyWeb': 'https://www.skyscanner.com/',
@@ -151,6 +162,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Travel Agencies'
   },
   {
+    'agencyId': 'kayak123',
     'agencyName': 'Kayak',
     'agencyImage': 'assets/agency/kayakair.png',
     'agencyWeb': 'https://www.kayak.com/',
@@ -165,6 +177,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Travel Agencies'
   },
   {
+    'agencyId': 'airbnb123',
     'agencyName': 'Airbnb',
     'agencyImage': 'assets/agency/airbnb.png',
     'agencyWeb': 'https://www.airbnb.com/',
@@ -179,6 +192,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Hotels'
   },
   {
+    'agencyId': 'goibibo123',
     'agencyName': 'Goibibo',
     'agencyImage': 'assets/agency/goibibo.png',
     'agencyWeb': 'https://www.goibibo.com/',
@@ -193,6 +207,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Travel Agencies'
   },
   {
+    'agencyId': 'tripcom123',
     'agencyName': 'Trip.com',
     'agencyImage': 'assets/agency/trip_com.jpg',
     'agencyWeb': 'https://www.trip.com/',
@@ -207,6 +222,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Travel Agencies'
   },
   {
+    'agencyId': 'zomato123',
     'agencyName': 'Zomato',
     'agencyImage': 'assets/agency/zomato.png',
     'agencyWeb': 'https://www.zomato.com/',
@@ -221,6 +237,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Food Delivery'
   },
   {
+    'agencyId': 'swiggy123',
     'agencyName': 'Swiggy',
     'agencyImage': 'assets/agency/swiggy.png',
     'agencyWeb': 'https://www.swiggy.com/',
@@ -234,6 +251,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Food Delivery'
   },
   {
+    'agencyId': 'justdial123',
     'agencyName': 'JustDial',
     'agencyImage': 'assets/agency/justdial.png',
     'agencyWeb': 'https://www.justdial.com/',
@@ -247,6 +265,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Food Delivery'
   },
   {
+    'agencyId': 'oyo123',
     'agencyName': 'OYO Rooms',
     'agencyImage': 'assets/agency/oyo.png',
     'agencyWeb': 'https://www.oyorooms.com/',
@@ -261,6 +280,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Hotels'
   },
   {
+    'agencyId': 'indusgo123',
     'agencyName': 'IndusGo',
     'agencyImage': 'assets/agency/indusgo.png',
     'agencyWeb': 'https://www.indusgo.in/',
@@ -275,6 +295,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Rent Car'
   },
   {
+    'agencyId': 'rentacarkerala123',
     'agencyName': 'Rent A Car Kerala',
     'agencyImage': 'assets/agency/rentacarkerala.jpg',
     'agencyWeb': 'https://www.rentacarkerala.com/',
@@ -288,6 +309,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Rent Car'
   },
   {
+    'agencyId': 'kayakcar123',
     'agencyName': 'Kayak',
     'agencyImage': 'assets/agency/kayakcar.png',
     'agencyWeb': 'https://www.kayak.com/cars',
@@ -302,6 +324,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Rent Car'
   },
   {
+    'agencyId': 'bincarrentals123',
     'agencyName': 'Bin Car Rentals',
     'agencyImage': 'assets/agency/bincarrentals.png',
     'agencyWeb': 'https://www.bincarrentals.com/',
@@ -315,6 +338,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Rent Car'
   },
   {
+    'agencyId': 'justdialcar123',
     'agencyName': 'JustDial Car rent',
     'agencyImage': 'assets/agency/justdial.png',
     'agencyWeb': 'https://www.justdial.com/',
@@ -328,6 +352,7 @@ List<Map<String, dynamic>> agencies = [
     'category': 'Rent Car'
   },
   {
+    'agencyId': 'redbus123',
     'agencyName': 'RedBus',
     'agencyImage': 'assets/agency/redbus.png',
     'agencyWeb': 'https://www.redbus.in/',

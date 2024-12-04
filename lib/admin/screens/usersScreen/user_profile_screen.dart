@@ -424,38 +424,44 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              widget.isRemoved ? Colors.green : Colors.red,
+                          backgroundColor: widget.isRemoved
+                              ? Colors.green
+                              : Colors.red, // Green for Add, Red for Remove
+                          foregroundColor:
+                              Colors.white, // Text and icon color white
+                          side: BorderSide(
+                            color: Colors.black,
+                            width: 0.3, // Optional: Keep borders consistent
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                5), // Consistent border radius
+                          ),
                         ),
-                        child: Text(
-                          widget.isRemoved ? "Add" : "Remove",
-                          style: const TextStyle(color: Colors.white),
+                        child: Row(
+                          mainAxisSize:
+                              MainAxisSize.min, // Adjusts size to fit content
+                          mainAxisAlignment:
+                              MainAxisAlignment.center, // Centers text and icon
+                          children: [
+                            Icon(
+                              widget.isRemoved
+                                  ? Icons.add
+                                  : Icons.remove, // Add or Remove icon
+                              color: Colors.white, // Icon color white
+                            ),
+                            SizedBox(width: 8), // Space between icon and text
+                            Text(
+                              widget.isRemoved
+                                  ? "Add"
+                                  : "Remove", // Dynamic text
+                              style: const TextStyle(
+                                  color: Colors.white), // Text color white
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ),
-
-                  // Chat Button
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        minimumSize:
-                            Size(double.infinity, 50), // Increase button width
-                        side: BorderSide(color: Colors.black, width: 1),
-                        backgroundColor: Colors.green[100] // Black border
-                        ),
-                    onPressed: () {
-                      // Sample token
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SentMessagePage(
-                            userNameFromPreviousPage: userData['userName'],
-                            disableSendToAll: true, // Disable the switch
-                          ),
-                        ),
-                      );
-                    },
-                    child: const Text('Message'),
                   ),
                 ],
               ),
@@ -502,7 +508,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               0.45, // 45% of the width for each button
                           child: ElevatedButton(
                             onPressed: () {
-                              // Sample token
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -516,19 +521,32 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.black,
-                              backgroundColor:
-                                  Colors.white, // Set background color to white
+                              backgroundColor: Colors
+                                  .green, // Set button background color to green
+                              foregroundColor: Colors
+                                  .white, // Set text and icon color to white
                               side: BorderSide(
                                 color: Colors.black,
-                                width: 0.3, // Decreased the border width to 1
+                                width: 0.3, // Decreased border width
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                     5), // Decreased border radius
                               ),
                             ),
-                            child: const Text("Message"),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment
+                                  .center, // Center text and icon
+                              children: [
+                                Icon(Icons.message,
+                                    color: Colors.white), // Icon in white
+                                SizedBox(
+                                    width: 8), // Space between icon and text
+                                Text("Notify",
+                                    style: TextStyle(
+                                        color: Colors.white)), // Text in white
+                              ],
+                            ),
                           ),
                         ),
                       ],
