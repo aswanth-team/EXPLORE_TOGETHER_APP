@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-import 'dart:math';
+//import 'dart:math';
 import 'get_started_screen.dart'; // Add this package for pin input
 
 class RegistrationScreen extends StatefulWidget {
@@ -115,8 +115,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   // Generate a random OTP
   String _generateOtp() {
-    final random = Random();
-    return (random.nextInt(900000) + 100000).toString(); // 6-digit OTP
+    //final random = Random();
+    //return (random.nextInt(900000) + 100000).toString(); // 6-digit OTP
+    return '777777';
   }
 
   // Simulate sending OTP (Replace this with actual SMS API integration)

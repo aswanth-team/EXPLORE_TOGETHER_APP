@@ -47,7 +47,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     String username = usernameController.text;
 
     // Simulate checking the database for the username
-    if (username == "existingUser") {
+    if (username == "User") {
       return true;
     } else {
       return false;
@@ -161,7 +161,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 ),
               const SizedBox(height: 20),
 
-// Verify Button: Shows after OTP fields
+              // Verify Button: Shows after OTP fields
               if (usernameExists && !otpVerified)
                 ElevatedButton(
                   onPressed: () async {
