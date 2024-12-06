@@ -192,7 +192,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         color: Colors.white70,
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 70),
                     Form(
                       key: _formKey,
                       child: _step == 1
@@ -211,83 +211,106 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  // Build Step 1 - User details
   Widget _buildStep1() {
     return Column(
       children: [
-        TextFormField(
-          controller: fullNameController,
-          style: const TextStyle(color: Colors.white),
-          decoration: _inputDecoration("Full Name", Icons.person),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return "Please enter your full name";
-            }
-            return null;
-          },
+        SizedBox(
+          width: 350, // Set the desired width
+          child: TextFormField(
+            controller: fullNameController,
+            style: const TextStyle(color: Colors.white),
+            decoration: _inputDecoration("Full Name", Icons.person),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter your full name";
+              }
+              return null;
+            },
+          ),
         ),
         const SizedBox(height: 20),
-        Row(
-          children: [
-            Expanded(
-              child: DropdownButtonFormField<String>(
-                value: _gender,
-                decoration: _inputDecoration("Gender", Icons.person_outline),
-                items: ["Male", "Female", "Other"]
-                    .map((gender) => DropdownMenuItem(
-                          value: gender,
-                          child: Text(
-                            gender,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ))
-                    .toList(),
-                dropdownColor: const Color.fromARGB(255, 77, 154, 255),
-                onChanged: (value) {
-                  setState(() {
-                    _gender = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please select your gender";
-                  }
-                  return null;
-                },
-              ),
+        SizedBox(
+          width: 350, // Set width for the dropdown
+          child: DropdownButtonFormField<String>(
+            value: _gender,
+            decoration: _inputDecoration("Gender", Icons.person_outline),
+            items: ["Male", "Female", "Other"]
+                .map((gender) => DropdownMenuItem(
+                      value: gender,
+                      child: Text(
+                        gender,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ))
+                .toList(),
+            dropdownColor: const Color.fromARGB(255, 77, 154, 255),
+            onChanged: (value) {
+              setState(() {
+                _gender = value;
+              });
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please select your gender";
+              }
+              return null;
+            },
+          ),
+        ),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: 350, // Set width for the DOB field
+          child: TextFormField(
+            controller: dobController,
+            readOnly: true,
+            style: const TextStyle(color: Colors.white),
+            onTap: _selectDate,
+            decoration: _inputDecoration("DOB", Icons.cake),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please select your date of birth";
+              }
+              return null;
+            },
+          ),
+        ),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: 350, // Set the desired width
+          child: TextFormField(
+            controller: locationController,
+            style: const TextStyle(color: Colors.white),
+            decoration: _inputDecoration("Location", Icons.location_on),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter your location";
+              }
+              return null;
+            },
+          ),
+        ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: _nextStep,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.lightBlueAccent,
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: TextFormField(
-                controller: dobController,
-                readOnly: true,
-                style: const TextStyle(color: Colors.white),
-                onTap: _selectDate,
-                decoration: _inputDecoration("DOB", Icons.cake),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please select your date of birth";
-                  }
-                  return null;
-                },
-              ),
+          ),
+          child: const Text(
+            "Next",
+            style: TextStyle(
+              color: Colors.white,
             ),
-          ],
+          ),
         ),
-        const SizedBox(height: 20),
-        TextFormField(
-          controller: locationController,
-          style: const TextStyle(color: Colors.white),
-          decoration: _inputDecoration("Location", Icons.location_on),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return "Please enter your location";
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 20),
-        TextFormField(
+      ],
+    );
+  }
+
+/*TextFormField(
           controller: aadharController,
           style: const TextStyle(color: Colors.white),
           decoration: _inputDecoration("Aadhar Number", Icons.credit_card),
@@ -297,123 +320,141 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             }
             return null;
           },
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: _nextStep,
-          child: const Text("Next"),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.lightBlueAccent,
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
+        ),*/
   // Build Step 2 - Additional details
   Widget _buildStep2() {
     return Column(
       children: [
-        TextFormField(
-          controller: usernameController,
-          style: const TextStyle(color: Colors.white),
-          decoration: _inputDecoration("Username", Icons.person),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return "Please enter your username";
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 20),
-        TextFormField(
-          controller: mobileNumberController,
-          style: const TextStyle(color: Colors.white),
-          decoration: _inputDecoration("Mobile Number", Icons.phone),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return "Please enter your mobile number";
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 20),
-        TextFormField(
-          controller: emailController,
-          style: const TextStyle(color: Colors.white),
-          decoration: _inputDecoration("Email", Icons.email),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return "Please enter your email";
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 20),
-        TextFormField(
-          controller: passwordController,
-          style: const TextStyle(color: Colors.white),
-          decoration: _inputDecoration("Password", Icons.lock),
-          obscureText: true,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return "Please enter your password";
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 20),
-        TextFormField(
-          controller: confirmPasswordController,
-          style: const TextStyle(color: Colors.white),
-          decoration: _inputDecoration("Confirm Password", Icons.lock),
-          obscureText: true,
-          validator: (value) {
-            if (value != passwordController.text) {
-              return "Passwords do not match";
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 20),
-        // Back Button at the bottom left
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {
-                // Go back to Step 1
-                _step = 1;
-              });
+        SizedBox(
+          width: 350, // Set the desired width
+          child: TextFormField(
+            controller: usernameController,
+            style: const TextStyle(color: Colors.white),
+            decoration: _inputDecoration("Username", Icons.person),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter your username";
+              }
+              return null;
             },
           ),
         ),
         const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              _sendOtp(mobileNumberController.text);
-              setState(() {
-                _step = 3;
-              });
-            }
-          },
-          child: const Text("Register"),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.lightBlueAccent,
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+        SizedBox(
+          width: 350, // Set the desired width
+          child: TextFormField(
+            controller: mobileNumberController,
+            style: const TextStyle(color: Colors.white),
+            decoration: _inputDecoration("Mobile Number", Icons.phone),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter your mobile number";
+              }
+              return null;
+            },
           ),
+        ),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: 350, // Set the desired width
+          child: TextFormField(
+            controller: emailController,
+            style: const TextStyle(color: Colors.white),
+            decoration: _inputDecoration("Email", Icons.email),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter your email";
+              }
+              return null;
+            },
+          ),
+        ),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: 350, // Set the desired width
+          child: TextFormField(
+            controller: passwordController,
+            style: const TextStyle(color: Colors.white),
+            decoration: _inputDecoration("Password", Icons.lock),
+            obscureText: true,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter your password";
+              }
+              return null;
+            },
+          ),
+        ),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: 350, // Set the desired width
+          child: TextFormField(
+            controller: confirmPasswordController,
+            style: const TextStyle(color: Colors.white),
+            decoration: _inputDecoration("Confirm Password", Icons.lock),
+            obscureText: true,
+            validator: (value) {
+              if (value != passwordController.text) {
+                return "Passwords do not match";
+              }
+              return null;
+            },
+          ),
+        ),
+        const SizedBox(height: 20),
+        Row(
+          mainAxisAlignment:
+              MainAxisAlignment.center, // Align buttons to the edges
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _step = 1;
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.redAccent,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: const Text(
+                "Back",
+                style: TextStyle(
+                  color: Colors.white, // Set text color to white
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 100,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _sendOtp(mobileNumberController.text);
+                  setState(() {
+                    _step = 3;
+                  });
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.lightBlueAccent,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: const Text(
+                "Register",
+                style: TextStyle(
+                  color: Colors.white, // Set text color to white
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -476,26 +517,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
         const SizedBox(height: 20),
         ElevatedButton(
-          onPressed: _start == 0
-              ? () {
-                  // Logic to resend OTP
-                  startTimer();
-                  setState(() {
-                    // Reset OTP and resend
-                  });
-                }
-              : null,
-          child: const Text("Resend OTP"),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.lightBlueAccent,
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton(
           onPressed: () {
             if (otp == generatedOtp) {
               _storeUserDetails();
@@ -509,16 +530,48 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               );
             }
           },
-          child: const Text("Verify OTP"),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.lightBlueAccent,
+            backgroundColor: Colors.lightGreenAccent,
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: const Text("Verify OTP"),
+        ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: _start == 0
+              ? () {
+                  // Logic to resend OTP
+                  startTimer();
+                  setState(() {
+                    // Reset OTP and resend
+                  });
+                }
+              : null,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 255, 92, 51),
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: const Text(
+            "Resend OTP",
+            style: TextStyle(
+              color: Colors.white, // Set text color to white
             ),
           ),
         ),
       ],
     );
   }
+}
+
+void main() {
+  runApp(const MaterialApp(
+    home: RegistrationScreen(),
+    debugShowCheckedModeBanner: false,
+  ));
 }
