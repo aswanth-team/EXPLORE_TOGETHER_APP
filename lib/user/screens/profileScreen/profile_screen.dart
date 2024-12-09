@@ -10,18 +10,17 @@ Map<String, dynamic> userData = {
   "userImage": "assets/profile/aswanth.webp",
   "userName": "aswanth123",
   "userMobileNumber": 85423343242,
+  "useremail": "ajmaluk123nyd@gmail.com",
   "userFullName": "Aswanth K",
-  "userBio":
-      "Lover of nature and travel. Always exploring new places and capturing memories. I believe in living life to the fullest. Come join my journey!",
   "userGender": "Male",
   "userDOB": "January 1, 1995",
   "userLocation": "Kannur, Kerala",
-  "userSocialLinks": {
-    "instagram": "https://www.instagram.com/a.swnth",
-    "facebook": "https://www.facebook.com/aswanth.kumar",
-    "gmail": "aswanth.kumar@gmail.com",
-    "twitter": "https://x.com/__x"
-  },
+  "userBio":
+      "Lover of nature and travel. Always exploring new places and capturing memories",
+  "instagram": "https://www.instagram.com/a.swnth",
+  "facebook": "https://www.facebook.com/aswanth.kumar",
+  "gmail": "aswanth.kumar@gmail.com",
+  "twitter": "https://x.com/__x",
   "userPosts": [
     {
       "postId": "post1",
@@ -358,12 +357,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   MainAxisAlignment.center, // Center align the row
               children: [
                 // Instagram Icon
-                if (userData['userSocialLinks']['instagram']?.isNotEmpty ??
-                    false)
+                if (userData['instagram']?.isNotEmpty ?? false)
                   IconButton(
                     onPressed: () {
-                      final instagramLink =
-                          userData['userSocialLinks']['instagram'];
+                      final instagramLink = userData['instagram'];
                       launchUrl(Uri.parse(instagramLink));
                     },
                     icon: const FaIcon(
@@ -373,16 +370,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     tooltip: 'Instagram',
                   ),
-                if (userData['userSocialLinks']['instagram']?.isNotEmpty ??
-                    false)
+                if (userData['instagram']?.isNotEmpty ?? false)
                   const SizedBox(width: 6),
 
                 // Twitter (X) Icon
-                if (userData['userSocialLinks']['twitter']?.isNotEmpty ?? false)
+                if (userData['twitter']?.isNotEmpty ?? false)
                   IconButton(
                     onPressed: () {
-                      final twitterLink =
-                          userData['userSocialLinks']['twitter'];
+                      final twitterLink = userData['twitter'];
                       launchUrl(Uri.parse(twitterLink));
                     },
                     icon: const FaIcon(
@@ -392,14 +387,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     tooltip: 'Twitter',
                   ),
-                if (userData['userSocialLinks']['twitter']?.isNotEmpty ?? false)
+                if (userData['twitter']?.isNotEmpty ?? false)
                   const SizedBox(width: 6),
 
                 // Gmail Icon
-                if (userData['userSocialLinks']['gmail']?.isNotEmpty ?? false)
+                if (userData['gmail']?.isNotEmpty ?? false)
                   IconButton(
                     onPressed: () {
-                      final gmailLink = userData['userSocialLinks']['gmail'];
+                      final gmailLink = userData['gmail'];
                       launchUrl(Uri(
                         scheme: 'mailto',
                         path: gmailLink,
@@ -412,16 +407,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     tooltip: 'Gmail',
                   ),
-                if (userData['userSocialLinks']['gmail']?.isNotEmpty ?? false)
+                if (userData['gmail']?.isNotEmpty ?? false)
                   const SizedBox(width: 6),
 
                 // Facebook Icon
-                if (userData['userSocialLinks']['facebook']?.isNotEmpty ??
-                    false)
+                if (userData['facebook']?.isNotEmpty ?? false)
                   IconButton(
                     onPressed: () {
-                      final facebookLink =
-                          userData['userSocialLinks']['facebook'];
+                      final facebookLink = userData['facebook'];
                       launchUrl(Uri.parse(facebookLink));
                     },
                     icon: const FaIcon(

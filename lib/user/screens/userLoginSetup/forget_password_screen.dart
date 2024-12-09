@@ -42,18 +42,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     );
   }
 
-  // Simulate checking username existence in the database
-  Future<bool> _checkUsernameExistence() async {
-    String username = usernameController.text;
-
-    // Simulate checking the database for the username
-    if (username == "User") {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   // Simulate OTP verification logic
   Future<bool> _verifyOtp() async {
     String enteredOtp = otpController.text;
@@ -112,17 +100,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      bool exists = await _checkUsernameExistence();
-                      if (exists) {
-                        setState(() {
-                          usernameExists = true;
-                        });
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text("Username does not exist")),
-                        );
-                      }
+                      setState(() {
+                        usernameExists = true;
+                      });
                     }
                   },
                   child: const Text("Check Username"),
