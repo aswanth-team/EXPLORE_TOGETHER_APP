@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'admin/screens/admin_screen.dart';
-import 'user/screens/userLoginSetup/forget_password.dart';
+import 'user/screens/userLoginSetup/forget_password_screen.dart';
 import 'user/screens/userLoginSetup/registration_screen.dart';
 import 'user/screens/user_screen.dart';
 
